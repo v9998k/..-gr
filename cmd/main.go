@@ -17,6 +17,7 @@ import (
 	"github.com/0xPolygon/cdk-data-availability/sequencer"
 	"github.com/0xPolygon/cdk-data-availability/services/datacom"
 	"github.com/0xPolygon/cdk-data-availability/services/sync"
+	"github.com/0xPolygon/cdk-data-availability/services/web3"
 	"github.com/0xPolygon/cdk-data-availability/synchronizer"
 	"github.com/0xPolygon/cdk-data-availability/types"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -140,6 +141,10 @@ func start(cliCtx *cli.Context) error {
 	server := rpc.NewServer(
 		c.RPC,
 		[]rpc.Service{
+			{
+				Name:    web3.APIWEB3,
+				Service: web3.NewEndpoints(),
+			},
 			{
 				Name:    sync.APISYNC,
 				Service: sync.NewEndpoints(storage),
